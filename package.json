@@ -1,0 +1,22 @@
+{
+  "name": "nodejs_webapplication",
+  "version": "1.0.0",
+  "description": "Nodejs_wepApplication",
+  "main": "Hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Minwoo-Seo-code/Nodejs_WebApplication.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Minwoo-Seo-code/Nodejs_WebApplication/issues"
+  },
+  "homepage": "https://github.com/Minwoo-Seo-code/Nodejs_WebApplication#readme",
+  "dependencies": {
+    "underscore": "^1.13.1"
+  }
+}
