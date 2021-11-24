@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Minwoo-Seo-code/Nodejs_WebApplication#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "underscore": "^1.13.1"
   }
 }
