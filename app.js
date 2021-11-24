@@ -4,12 +4,44 @@
 //express 모듈 사용하기
 var express = require('express');
 var app = express();
-app.use(express.static('public'));//정적인 파일이 위치할 디렉토리를 지정하는 기능
+app.locals.pretty = true; //코드를 이쁘게 하는 방법
+app.set('view engine', 'jade'); //view engine은 template engine이다.
+app.set('views', './views'); //관습적으로 jadeExpress는 template engine들의 template파일을 views에 넣는다.
+app.use(express.static('public')); //정적인 파일이 위치할 디렉토리를 지정하는 기능.
+                                   //나는 public 폴더에 정적인 파일을 넣겠다.
 var port = 3000;
 
+app.get('/template', function(req, res){ //template을 치고 들어오는 사용자에게 어떻게 보여줄거냐
+  res.render('temp', {_title:'this is Title', time:Date()}); //'temp'라는 템플릿 파일을 렌더링해서 전송한다.
+                      //render의 두번째 인자로 객체를 전달하는데 변수와 변수값을 객체로 전달한다.
+});
 app.get('/', function(req, res){ //사용자가 웹 서버를 접속할 때는 get방식과 post방식이 있고 보통 get방식으로 들어온다.
   //사용자가 '/' 홈으로 접속시, 콜백함수를 통해 처리하겠다.
-  res.send('Hello homepage');
+  res.send('Hello homepage, <img src="/qrcode.png">');
+});
+app.get('/dynamic', function(req, res){
+  var lis = '';
+  for (var i = 0; i <= 5; i++) {
+    lis += '<li>coding</li>'
+  }
+  var time = Date();
+  var output = `
+    <!DOCTYPE html>
+    <html lang="kr" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title></title>
+      </head>
+      <body>
+        Hello World! this is dynamic page
+        <ul>
+        ${lis}
+        </ul>
+        ${time}
+      </body>
+    </html>
+    `;
+  res.send(output);
 });
 app.get('/login', function(req, res){ // ''경로, 콜백함수를 통한 처리
   //사용자가 '/' 홈으로 접속시, 콜백함수를 통해 처리하겠다.
