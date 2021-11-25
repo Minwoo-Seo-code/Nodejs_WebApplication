@@ -12,23 +12,26 @@ app.set('views', './views'); //관습적으로 jadeExpress는 template engine들
 app.use(express.static('public')); //정적인 파일이 위치할 디렉토리를 지정하는 기능.
                                    //나는 public 폴더에 정적인 파일을 넣겠다.
 
-app.get('/topic', function (req, res){
+app.get('/topic/:id', function (req, res){
   var topics = [
     'JavaScript is ...',
     'Nodejs is ...',
     'Expressjs is ...'
   ];
   var output = `
-    <a href="/topic?id=0">JavaScript</a><br>
-    <a href="/topic?id=1">Nodejs</a><br>
-    <a href="/topic?id=2">Expressjs</a><br><br>
-    ${topics[req.query.id]}
-  `;
+    <a href="/topic/:id=0">JavaScript</a><br>
+    <a href="/topic/:id=1">Nodejs</a><br>
+    <a href="/topic/:id=2">Expressjs</a><br><br>
+    ${topics[req.params.id]}
+  `;  //params로 바꾸면 입력값을 쿼리스트링으로 받는다.
   res.send(output); //id라는 이름의 쿼리로 request, 즉 req.query.id을 res.send의 값으로 응답하겠다.
 //res.send(req.query. name); 이면 쿼리스트링은 name 이어야 한다.
 // res.send(req.query.id + ',' + req.query.name);  //2개 이상의 값을 받아와야할 때 사용하는 방법
 });
 
+app.get('/topic/:id/:mode', function (req, res){  //Sementic URL의 사용방법
+  res.send(req.params.id + ',' + req.params.mode);
+});
 app.get('/template', function(req, res){ //template을 치고 들어오는 사용자에게 어떻게 보여줄거냐
   res.render('temp', {_title:'this is Title', time:Date()}); //'temp'라는 템플릿 파일을 렌더링해서 전송한다.
                       //render의 두번째 인자로 객체를 전달하는데 변수와 변수값을 객체로 전달한다.
