@@ -3,6 +3,7 @@
 
 //express 모듈 사용하기
 var express = require('express');
+var bodyParser = require('body-parser');  //body-parser 모듈 사용
 var app = express();
 var port = 3000;
 
@@ -11,6 +12,18 @@ app.set('view engine', 'jade'); //view engine은 template engine이다.
 app.set('views', './views'); //관습적으로 jadeExpress는 template engine들의 template파일을 views에 넣는다.
 app.use(express.static('public')); //정적인 파일이 위치할 디렉토리를 지정하는 기능.
                                    //나는 public 폴더에 정적인 파일을 넣겠다.
+app.use(bodyParser.urlencoded({ extended: false }));  //bodyParser라는 미들웨어를 통해 request 처리 한다.
+
+app.get('/form', function (req, res){
+  res.render('form');
+
+});
+//Post 방식 사용하는 방법
+app.post('/form_receiver', function (req, res){ //bodyParser를 통해서 사용한다.
+  var title = req.body.title;
+  var description = req.body.description;
+  res.send(title + ',' + description);
+});
 
 app.get('/topic/:id', function (req, res){
   var topics = [
